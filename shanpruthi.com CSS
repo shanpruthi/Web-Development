@@ -1,6 +1,5 @@
 @charset "UTF-8";
 /* CSS Document */
-
 body {
 	line-height: 210%;
 	overflow-x: hidden;
