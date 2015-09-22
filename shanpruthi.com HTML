@@ -9,7 +9,6 @@
     <meta http-equiv="Content-Script-Type" content="text/javascript">   
     <title>Shan Pruthi</title>
     <link href="stylesheet.css" rel="stylesheet" type="text/css" />
-
     <!--Script for Google Maps-->
     <script src="https://maps.googleapis.com/maps/api/js">
     </script>
