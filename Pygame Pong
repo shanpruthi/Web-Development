@@ -1,0 +1,309 @@
+import pygame, sys #importing pygame libraries into program and importing sys libraries to exit the game
+from pygame.locals import *
+
+FPS = 200 # setting global variable for number of frames per second
+#this value can be changed to speed up or slow down the game
+
+#also need window height and width as global variables 
+WINDOWWIDTH = 400
+WINDOWHEIGHT = 300
+
+INCREASESPEED = 1
+
+x = 1
+
+#global variables for arena and paddle detail
+LINETHICKNESS = 5
+PADDLESIZE = 30
+PADDLEOFFSET = 10 #distance paddle is from arena edge
+
+#it will be in black and white, so we can set colour variables for these values
+BLACK = (0 ,0 ,0 )
+WHITE = (255,255,255)
+
+def gameIntro():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+        DISPLAYSURF.fill(BLACK)
+        resultSurf = BASICFONT.render("Hello and welcome to PruthiPong", True, WHITE) 
+        resultRect = resultSurf.get_rect() 
+        resultRect.center =(WINDOWWIDTH / 2, LINETHICKNESS + 30)
+        DISPLAYSURF.blit(resultSurf, resultRect)
+        
+        level1text = BASICFONT.render("Press 1 for Level 1", True, WHITE) 
+        level1box = level1text.get_rect() 
+        level1box.center =(WINDOWWIDTH / 2, LINETHICKNESS + 70)
+        DISPLAYSURF.blit(level1text, level1box)
+        
+        level2text = BASICFONT.render("Press 2 for Level 2", True, WHITE) 
+        level2box = level2text.get_rect() 
+        level2box.center =(WINDOWWIDTH / 2, LINETHICKNESS + 110)
+        DISPLAYSURF.blit(level2text, level2box) 
+
+        level3text = BASICFONT.render("Press 3 for Level 3", True, WHITE) 
+        level3box = level3text.get_rect() 
+        level3box.center =(WINDOWWIDTH / 2, LINETHICKNESS + 150)
+        DISPLAYSURF.blit(level3text, level3box)     
+        
+        mouse = pygame.mouse.get_pos() #to create a border around the text
+        if (level1box.left + 80 > mouse[0] > level1box.left and level1box.top + 25 > mouse[1] > level1box.top):
+            borderedlevel1box = pygame.draw.rect(DISPLAYSURF, WHITE, ((level1box.left-5, level1box.top-5),(80,26)),round(LINETHICKNESS/5))
+        
+        if (level2box.left + 80 > mouse[0] > level2box.left and level2box.top + 25 > mouse[1] > level2box.top):
+            borderedlevel2box = pygame.draw.rect(DISPLAYSURF, WHITE, ((level2box.left-5, level2box.top-5),(80,26)),round(LINETHICKNESS/5))
+        
+        if (level3box.left + 80 > mouse[0] > level3box.left and level3box.top + 25 > mouse[1] > level3box.top):
+            borderedlevel3box = pygame.draw.rect(DISPLAYSURF, WHITE, ((level3box.left-5, level3box.top-5),(80,26)),round(LINETHICKNESS/5))       
+        
+        pygame.display.update()        
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                global INCREASESPEED
+                if event.key == K_1:
+                    INCREASESPEED = 1
+                if event.key == K_2:
+                    INCREASESPEED = 2  
+                if event.key == K_3:
+                    INCREASESPEED = 3                     
+            return
+                    
+#we need to define the four functions that we placed in the main function in order for them to work
+def drawArena():
+    DISPLAYSURF.fill((0,0,0)) #fills the background with black
+    #Draws the outline of the arena
+    #we create a hollow rectangle by adding an extra parameter which identifies the thickness of the border
+    #DISPLAYSURF is which surface to draw onto, white is the colour, (0,0) is the top left coordinate, width and height are there, and finally the line thickness is doubled because half of the border will be outside the rectangle and the other half will be inside the rectangle
+    pygame.draw.rect(DISPLAYSURF, WHITE, ((0,0),(WINDOWWIDTH,WINDOWHEIGHT)), LINETHICKNESS*2)
+    #(similar syntax to previous drawing) drawing the center line, note that the border/outline is very thin because this is a thin line
+    pygame.draw.line(DISPLAYSURF, WHITE, ((WINDOWWIDTH/2),0), ((WINDOWWIDTH/2), WINDOWHEIGHT), round((LINETHICKNESS/4)))
+    
+#draw the paddle
+def drawPaddle(paddle):
+    #Stops paddle moving too low
+    if paddle.bottom > WINDOWHEIGHT - LINETHICKNESS: #if it goes past the bottom value, it will equal the bottom value
+        paddle.bottom = WINDOWHEIGHT - LINETHICKNESS
+    #Stops paddle moving too high
+    elif paddle.top < LINETHICKNESS:
+        paddle.top = LINETHICKNESS
+    #to draw paddle
+    pygame.draw.rect(DISPLAYSURF, WHITE, paddle)
+
+def drawBall(ball):
+    pygame.draw.rect(DISPLAYSURF, WHITE, ball)
+    
+def moveBall(ball, ballDirX, ballDirY): #moves the ball into new position     
+    ball.x += (ballDirX * INCREASESPEED) #will add ballDirX(-1) to x value of ball
+    ball.y += (ballDirY * INCREASESPEED) #will add ballDirY(-1) to x value of ball
+    return ball #and then return the new position of the ball 
+    
+def checkEdgeCollision(ball, ballDirX, ballDirY):
+    if ball.top < (LINETHICKNESS) or ball.bottom > (WINDOWHEIGHT - LINETHICKNESS):
+        ballDirY = ballDirY * (-1) #if it hits the top or bottom of the screen, reverse the Y direction (make it go up or down)
+    if ball.left < (LINETHICKNESS) or ball.right > (WINDOWWIDTH - LINETHICKNESS):
+        ballDirX = ballDirX * (-1)
+    return ballDirX, ballDirY
+
+def checkHitBall(ball, paddle1, paddle2, ballDirX):
+    if ballDirX == -1 and paddle1.right == ball.left and paddle1.top < ball.top and paddle1.bottom > ball.bottom: #if rightside of paddle touches left side of ball, and ball is between paddle top and paddle bottom then do this
+        return -1
+    if ballDirX == -1 and (paddle1.right - 1) == ball.left and paddle1.top < ball.top and paddle1.bottom > ball.bottom: #if rightside of paddle touches left side of ball, and ball is between paddle top and paddle bottom then do this
+        return -1    
+    elif ballDirX == 1 and paddle2.left == ball.right and paddle2.top < ball.top and paddle2.bottom > ball.bottom:
+        return -1
+    elif ballDirX == 1 and (paddle2.left - 1) == ball.right and paddle2.top < ball.top and paddle2.bottom > ball.bottom: #need to consider for hopping pixels because of increased speed
+        return -1    
+    else: 
+        return 1 #if it hits either of the paddles, multipl the x direction of the ball by -1, and if not, then just return 1 and continue its path
+        
+def checkMyPointScored(paddle1, ball, score1, ballDirX):
+    if ball.right > (WINDOWWIDTH - LINETHICKNESS):
+        score1 += 1
+        return score1 #if it hits the right wall, you get a point
+    else:
+        return score1 #if no points were scored
+        
+def checkOppPointScored(paddle2, ball, score2, ballDirX):
+    if ball.left < LINETHICKNESS:
+        score2 += 1
+        return score2
+    else: 
+        return score2 #if no points were scored
+
+def artificialIntelligence(ball, ballDirX, paddle2):
+    #if the ball is moving away from the paddle we want to center the paddle
+    if ballDirX == -1: #this is to check if the ball is moving away from the paddle or towards the paddle, if it is moving away, we are going to center
+        if paddle2.centery < (WINDOWHEIGHT/2):
+            paddle2.y += INCREASESPEED
+        elif paddle2.centery > (WINDOWHEIGHT/2):
+            paddle2.y -= INCREASESPEED
+        #if the ball is moving towards the right side, track its movements accordingly
+    elif ballDirX == 1:
+        if paddle2.centery < ball.centery:
+            paddle2.y += INCREASESPEED #if the paddle is below the ball, keep adding one to the y value of paddle in order to put it below the ball
+        else:
+            paddle2.y -= INCREASESPEED #otherwise lower it, if the opposite is true
+    return paddle2
+
+#displaying our first score
+def displayScore1(score1):
+    resultSurf = BASICFONT.render('%s' %(score1), True, WHITE) #this creates a new surface, with the font rendering %s which takes whatever is x in the %(x)
+    resultRect = resultSurf.get_rect() #creates new rectangle the size of the surface we created
+    resultRect.topleft =(25, 25) #this positions the rectangle
+    DISPLAYSURF.blit(resultSurf, resultRect) #then we can display it on the surface
+    
+#displaying our second score
+def displayScore2(score2):
+    resultSurf = BASICFONT.render('%s' %(score2), True, WHITE) #this creates a new surface, with the font rendering %s which takes whatever is x in the %(x)
+    resultRect = resultSurf.get_rect() #creates new rectangle the size of the surface we created
+    resultRect.topleft =(WINDOWWIDTH - 25, 25) #this positions the rectangle
+    DISPLAYSURF.blit(resultSurf, resultRect) #then we can display it on the surface
+    
+def gameover(score1, score2, ball):
+    if score1 == 2 or score2 == 2:
+        ball.x = WINDOWWIDTH / 2
+        ball.y = WINDOWHEIGHT / 2
+        resultSurf = BASICFONT.render("Game Over. Press r to respawn", True, WHITE) #this creates a new surface, with the font rendering %s which takes whatever is x in the %(x)
+        resultRect = resultSurf.get_rect() #creates new rectangle the size of the surface we created
+        resultRect.center =(WINDOWWIDTH / 2, WINDOWHEIGHT / 2) #this positions the rectangle
+        DISPLAYSURF.blit(resultSurf, resultRect) #then we can display it on the surface
+        
+    
+#now we need to write the main function, and we have to define it before being able to call it
+def main(): 
+    pygame.init() #initializes pygame 
+    global DISPLAYSURF #this line creates main surface to use in program, it is a global variable so it can be accessed and/or changed later on
+
+    ##Font information
+    global BASICFONT, BASICFONTSIZE
+    BASICFONTSIZE = 20
+    BASICFONT = pygame.font.Font('freesansbold.ttf', BASICFONTSIZE)    
+
+    FPSCLOCK = pygame.time.Clock() #this says that we want to set the frame rate ourselves, rather than allowing pygame to run as fast as it wants 
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT)) #sets the width and height of the display surface to the original global variables window width and height 
+    pygame.display.set_caption('Pruthi Pong') #this is the title of the window
+    
+    #in our main function we have to initiate variables and set starting positions    
+    #any future changes that will be made within rectangles
+    ballX = WINDOWWIDTH/2 - LINETHICKNESS/2 #this will center the ball horizontally
+    ballY = WINDOWHEIGHT/2 - LINETHICKNESS/2 #this will center the ball vertically
+    playerOnePosition = (WINDOWHEIGHT - PADDLESIZE) / 2 #this will vertically center the paddle
+    playerTwoPosition = (WINDOWHEIGHT - PADDLESIZE) / 2 
+    
+    #we don't use WINDOWWIDTH/2 because that would place the top of the ball in centre of the screen and not the centre of the ball, we need to account of the line thickness and subtract half of that value
+    #this is because the rectangles are drawn using the coordinates of the top left corner and then using length and width to go down and to the right
+    
+    score1 = 0 #initiates score values (starting values)
+    score2 = 0
+    
+    #to keep track of the direction of the ball
+    ballDirX = -1 #-1 is left and 1 is right
+    ballDirY = -1 #up -1 is up and 1 is down
+    
+    
+    #to draw rectangles is pygame.Rect(x, y, w, l)
+    paddle1 = pygame.Rect(PADDLEOFFSET, playerOnePosition, LINETHICKNESS, PADDLESIZE)
+    #PADDLEOFFSET is 20, which is how far from the side we want the paddle to be
+    #playerOnePosition is centering it vertically as the y coordinate
+    #LINETHICKNESS identifies the width of the paddle
+    #PADDLESIZE is the height or length of the paddle
+    paddle2 = pygame.Rect(WINDOWWIDTH - PADDLEOFFSET - LINETHICKNESS, playerTwoPosition, LINETHICKNESS, PADDLESIZE)
+    ball = pygame.Rect(ballX, ballY, LINETHICKNESS, LINETHICKNESS)
+    
+    move_down = False
+    move_up = False
+        
+    #we've defined the rectangles and starting positions but we still need to draw them 
+    drawArena()
+    drawPaddle(paddle1)
+    drawPaddle(paddle2)
+    drawBall(ball)
+    #we don't pass any parameter into arena but we do for the rest because we won't be passing any other instruction into arena, but we will constantly be updating the paddles and the ball
+
+    #while intro == True:
+     #   if event.type == KEYDOWN:
+      #      if event.key == K_1 or event.key == K_2 or event.key == K_3:
+       #         intro = False
+                    
+    #pygame.mouse.set_visible(0) #this will make the cursor invisible on the screen
+    #while True:
+     #   gameIntro()           
+      #  for event in pygame.event.get():
+       #     if event.type == QUIT: #if the event that happens is quitting the window
+        #        pygame.display.quit()
+         #       pygame.quit() #quit pygame and exit the system
+          #      sys.exit()            
+           # elif event.type == KEYUP:
+            #    if event.key == K_1 or event.key == K_2 or event.key == K_3:
+                
+    gameIntro()
+    
+    while True: #this is the main game loop, which means that this will always be true
+        if move_down == True:
+            paddle1.y += 2    
+        if move_up == True:
+            paddle1.y -= 2         
+                    
+        for event in pygame.event.get(): #if an event happens           
+            if event.type == QUIT: #if the event that happens is quitting the window
+                pygame.display.quit()
+                pygame.quit() #quit pygame and exit the system
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_r:
+                    main() #this will restart if the r key is pressed
+                if event.key == K_UP:
+                    move_up = True
+                    move_down = False
+                if event.key == K_DOWN:
+                    move_up = False
+                    move_down = True
+            elif event.type == KEYUP:
+                if event.key == K_UP:
+                    move_up = False
+                if event.key == K_DOWN:
+                    move_down = False            
+        
+                
+            #mouse movement commands
+            #elif event.type == MOUSEMOTION:
+                    #mousex, mousey = event.pos
+                    #paddle1.y = mousey #setting it so that if the mouse is positioned in the window, the value of paddle1 y is going to be the y value of the mouse position         
+            
+
+        
+        drawArena() #because we will be updating the rectangle and ball positions, we have to therefore update the screen every tick or in line with the FPS rate
+        drawPaddle(paddle1)
+        drawPaddle(paddle2)
+        drawBall(ball) 
+        
+             
+        
+        ball = moveBall(ball, ballDirX, ballDirY) #this will call on the moveBall function to update it every frame per second
+        
+
+        ballDirX, ballDirY = checkEdgeCollision(ball, ballDirX, ballDirY)
+        #this updates the ball if it hits the sides of the window, changing its direction respectively
+        
+        score1 = checkMyPointScored(paddle1, ball, score1, ballDirX)
+        score2 = checkOppPointScored(paddle2, ball, score2, ballDirX)
+        
+        #calling the function in main loop to ensure it checks it every time the FPS ticks over (and it will update accordingly, every time)
+        ballDirX = ballDirX * checkHitBall(ball,paddle1, paddle2, ballDirX)
+        
+        #calling on the function to return paddle2 to equal the correct position
+        paddle2 = artificialIntelligence(ball, ballDirX, paddle2)
+        
+        displayScore1(score1)
+        displayScore2(score2)
+        gameover(score1, score2, ball)
+        
+        pygame.display.update() #we then can tell the screen to update as a result of quitting
+        FPSCLOCK.tick(FPS) #this is setting the frames/second to the value we set FPS to originally
+        
+
+
+if __name__=='__main__': #these lines will call our main function
+    main()
