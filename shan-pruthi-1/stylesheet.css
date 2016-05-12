@@ -1,0 +1,704 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+	line-height: 210%;
+	overflow-x: hidden;
+	}
+
+@font-face {
+font-family: 'Proxima Nova';
+src: local('proximanova-regular-webfont'), url('proximanova-regular-webfont.woff') format('woff');
+src: url('proximanova-regular-webfont.woff2') format('woff2'),
+}
+
+/* Petr Tichy at https://ihatetomatoes.net/create-custom-preloading-screen/ Preloading Screen ---------*/
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9997;
+}
+
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #3498db;
+    z-index: 9998;
+    -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+    animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+ 
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #e74c3c;
+    -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #f9c922;
+    -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+ 
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: #ffffff;
+    z-index: 9997;
+}
+ 
+#loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+ 
+#loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+
+h1 {
+	color: #000000;
+}
+
+#content {
+    margin: 0 auto;
+    padding-bottom: 50px;
+    width: 80%;
+    max-width: 978px;
+    color: white;
+}
+
+/* Loaded */
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(-100%);  /* IE 9 */
+    transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+}
+ 
+.loaded #loader-wrapper .loader-section.section-right {
+    -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(100%);  /* IE 9 */
+    transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+}
+.loaded #loader {
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out; 
+            transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper {
+    visibility: hidden;
+}
+
+.loaded #loader-wrapper .loader-section.section-right,
+.loaded #loader-wrapper .loader-section.section-left {
+ 
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645,0.045,0.355,1.000); 
+            transition: all 0.7s 0.3s cubic-bezier(0.645,0.045,0.355,1.000);
+}
+.loaded #loader-wrapper {
+        -webkit-transform: translateY(-100%);
+            -ms-transform: translateY(-100%);
+                transform: translateY(-100%);
+ 
+        -webkit-transition: all 0.3s 1s ease-out; 
+                transition: all 0.3s 1s ease-out;
+}
+
+.no-js #loader-wrapper {
+    display: none;
+}
+.no-js h1 {
+    color: #222222;
+}
+
+/* Navigation Bar -------------------------------------------------------------------*/
+#navigation {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9990;
+	width: 100%;
+	font-family: "Proxima Nova";
+	font-style: normal;
+	font-size: 18px;
+	margin-top: -10px;
+	text-align: center;
+	background-color: rgba(255,255,255,1);
+	border-bottom: 1px solid #000000;
+}
+
+#navigation ul {
+	margin-top: -10px;
+
+}
+
+#navigation li {
+	font: 18px "Proxima Nova";
+	background-color: transparent;
+	display:inline;
+	list-style-type: none;
+
+}
+
+#navigation a {
+	padding-left: 50px;
+	padding-right: 50px;
+	text-decoration: none;
+	color: #000000;
+
+
+}	
+
+#navigation a:hover {
+	color: #666
+	}
+
+/* Slideshow -------------------------------------------------------------------*/
+.active {
+	min-height: 800px;
+	min-width: 1100px;
+	overflow-x: hidden;
+}
+
+#slideshow {
+    position: relative;
+    height: 100px;
+	margin-left: -8px;
+	margin-right: -8px;
+	margin-top: -8px;
+}
+
+#slideshow IMG {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:8;
+	width: 100%;
+}
+
+#slideshow IMG.active {
+    z-index:10;
+}
+
+#slideshow IMG.last-active 
+    z-index:9;
+}
+
+/* Main Heading ----------------------------------------------------------------------*/
+.nametext {              
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+
+.logo {
+	width: 90px;
+	height: 90px;
+	position: absolute;
+	z-index: 20;
+	margin-left: 25px;
+	margin-top: 25px;
+	}
+
+.arrow {
+	position: absolute;
+	top: 400px;
+	left: 50%;
+	width: 50px;
+	height: 50px;
+	margin-top: -25px;
+	margin-left: -25px;
+	z-index: 20;
+	}
+
+.nametext {
+	font-famiy: Proxima Nova;
+	z-index: 20;
+	text-align: center;
+	color: white;
+	font-family: 'Proxima Nova';
+	font-weight: bold;
+	font-size: 45px;
+	left: 0;
+    position:absolute;
+    text-align:center;
+    top: 300px;
+    width: 100%;
+	}
+
+.description {
+	font-family: Proxima Nova;
+	z-index: 20;
+	text-align: center;
+	color: white;
+	font-family: 'Proxima Nova';
+	font-size: 20px;
+	left: 0;
+    position:absolute;
+    text-align:center;
+    top: 340px;
+    width: 100%
+	}
+
+#MainLogos {
+	position: absolute;
+	top: 550px;
+	left: 28px;
+	right:0;
+	text-align: center;
+	left-margin: auto;
+	right-margin: auto;
+	padding-bottom: 50px;
+	z-index: 20;
+	}
+/* Rules Across All Sections ----------------------------------------------------------------------*/	
+.invisibleline {
+	visibility: hidden;
+	position: relative;
+	z-index: -1;
+}
+
+.headingpart {
+	font-family: "Proxima Nova";
+	font-size: 24px;
+	padding-bottom: 30px;
+	color: #1db7e1;
+	font-weight: bold;
+	}
+
+hr {
+	border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.container1 {
+	position: absolute;
+	z-index: 100;
+	text-align: left;
+	background-color: white;
+	background-size: cover;
+	margin-left: -8px;
+	margin-right: 0px;
+	}
+	
+.container2 {
+	margin-left: 10%;
+	margin-right: 10%;
+	position: relative;
+	z-index: 101;
+	}
+
+/* About Section ----------------------------------------------------------------------*/	
+.about {
+	padding-top: 100px;
+	padding-bottom: 50px;
+	font-family: "Proxima Nova";
+	}
+
+.para {
+	font-size: 18px;
+}
+
+.captions {
+	font-family: "Proxima Nova";
+	font-size: 18px;
+	font-style: bold;
+	text-align: justify;
+	padding-bottom: 5px;
+}
+
+.links:link {
+	text-decoration: none;
+	font-weight: bold;
+	color: #2db7e1;
+}
+
+.firstpic:hover {
+	opacity: 0.3;
+}
+.secondpic:hover {
+	opacity: 0.3;
+}
+.thirdpic:hover {
+	opacity: 0.3;
+}
+
+.quotation {
+	font-family: "Proxima Nova";
+	font-size: 24px;
+	text-align: center;
+}
+
+/* Skills Section ----------------------------------------------------------------------*/	
+.skills	{
+	padding-bottom: 50px;
+	}
+
+.column {
+	-webkit-column-count: 3; 
+    -moz-column-count: 3;
+    column-count: 3;
+	font-family: "Proxima Nova";
+	font-size: 18px;
+	padding-top: 13px;
+	-webkit-column-gap: -100px; 
+    -moz-column-gap: -100px; 
+    column-gap: -300px;
+	}
+
+.listofskills {
+	list-style-type: disc;
+	font-size: 18px;
+	font-family: "Proxima Nova";
+	margin-left: -20px;
+	}
+
+/* Resume Section ----------------------------------------------------------------------*/	
+.resume {
+	padding-bottom: 50px;
+	}
+
+.screenshot {
+	width: 100%;
+	height: auto;
+	display: block;
+	border: 1px solid black;
+	}
+
+/* Contact Section ----------------------------------------------------------------------*/	
+#AllLogos {
+	text-align: center;
+	left-margin: auto;
+	right-margin: auto;
+	margin-bottom: 30px;
+	}
+
+.Logo {
+	padding-top: 10px;
+	padding-right: 30px;
+	display: inline-block;
+	}
+
+.Logo:hover {
+	opacity: 0.6;
+	}
+
+h4 {
+	font-size: 18px;
+	margin-left: 20px;
+	font-family: "Proxima Nova";
+	}
+
+.email {
+	color: #2db7e1;
+}
+
+/* Map */	
+h4.secondline {
+	margin-left: 0px;
+	}
+
+#map-canvas {
+        width: 100%;
+        height: 450px;
+		border: 2px solid #000000;
+}
+
+/* Contact Form */
+
+#form-wrap {
+	font-family: "Proxima Nova";
+	border: none;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+	margin-left: -25px;
+	}
+	
+.leftside ul li {
+	list-style: none;
+	}
+
+form {
+	font-weight: bold;
+	font-size: 18px;
+	}
+
+input {
+	font-family: 'Proxima Nova';
+	font-size: 16px;
+	display: block;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	}
+
+textarea {
+	font-family: 'Proxima Nova';
+	font-size: 16px;	
+	margin-left: 2%;
+	width: 60%;
+	height: 100px;
+	border: 1px solid #ccc;
+	display: block;
+	border-radius: 5px;
+	}
+
+label {
+	font-family: 'Proxima Nova';
+	font-size: 16px;
+	margin-left:2%;
+	}
+
+.required {
+	color: red;
+	}
+
+.contact-form form input[type="submit"] {
+  -webkit-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+	}
+
+#cf-success, #cf-error {
+  display: none;
+  opacity: 0;
+  margin-left: 10%;
+  -webkit-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+	}
+
+
+
+/* MEDIA QUERIES ----------------------------------------------------------------------*/	
+
+/*wide desktop*/
+@media (min-width:1326px) {
+	container1 {
+		z-index: 20;
+	}
+	#MainLogos {
+		margin-bottom: 500px;
+	}
+}
+
+/*browser on laptop or ipad landscape*/
+@media (min-width:961px) and (max-width: 1025px) {
+	#navigation a {
+	padding-left: 12px;
+	padding-right: 12px;
+	}
+	
+.active {
+	height: 700px;
+	min-width: 1100px;
+	overflow-x: hidden;
+	}
+}
+
+/* Ipad Portrait*/	
+@media (max-width: 960px) and (min-width: 690px) {
+#navigation a {
+	padding-left: 12px;
+	padding-right: 12px;
+	}
+}
+
+/* Adjusting Skills Column*/	
+@media (max-width: 800px) {
+.listofskills {
+		font-size: 14px;
+	}
+}
+
+/*phone in landscape*/
+@media (min-width: 461px) and (max-width: 689px) {
+
+body {
+	overflow-x: hidden;
+	}
+
+#map-canvas {
+	visibility: hidden;
+	height: 2px;
+	}
+
+#navigation {
+	margin-left: -8px;
+	margin-right: 0px;
+	margin-top: -8px;
+	}
+#hiding {
+	visibility: hidden;
+	}
+
+
+#navigation a {
+	font-size: 14px;
+	padding-left: 4px;
+	padding-right: 4px;
+	}
+
+.active {
+	max-height: 400px;
+	width: 550px;
+	overflow-x: hidden;
+	}
+
+.arrow {
+	top: 210px;
+	}
+
+.nametext {
+    top: 110px;
+	}
+
+.description {
+    top: 155px;
+	}
+
+#MainLogos {
+	top: 235px;
+	}
+	
+.about {
+	padding-top: 40px;
+	padding-bottom: 0px;
+	}
+
+.container1 {
+	top: 400px;
+	}
+}
+
+/*phone in portrait*/
+@media (min-width:320px) and (max-width: 460px) {
+
+body {
+	overflow-x: hidden;
+	}
+
+#map-canvas {
+	visibility: hidden;
+	height: 2px;
+	}
+
+#hiding {
+	visibility: hidden;
+	}
+
+#navigation {
+	visibility: hidden;
+	}
+
+#navigation a {
+	font-size: 6px;
+	padding-left: 4px;
+	padding-right: 4px;
+	}
+
+.active {
+	height: 340px;
+	width: 475px;
+	overflow-x: hidden;
+	}
+
+.arrow {
+	top: 335px;
+	left: 50%;
+	width: 30px;
+	height: 30px;
+	margin-top: -15px;
+	margin-left: -15px;
+	}
+
+.nametext {
+    top: 210px;
+	}
+
+.description {
+    top: 260px;
+	}
+
+#MainLogos {
+	top: 400px;
+	}
+	
+.about {
+	padding-top: 32px;
+	padding-bottom: 0px;
+	}
+
+.aboutpics {
+	display: none;
+	}
+
+.column {
+    -webkit-column-count: 1; /* Chrome, Safari, Opera */
+    -moz-column-count: 1; /* Firefox */
+    column-count: 1;
+    }
+
+.skills {
+ 	padding-bottom: 0px;
+ 	}
+}
+
