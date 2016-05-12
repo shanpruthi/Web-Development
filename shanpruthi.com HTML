@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!--meta head tags speficying data about the data-->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="english"> 
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">   
+    <title>Shan Pruthi</title>
+    <link href="stylesheet.css" rel="stylesheet" type="text/css" />
+    <!--Script for Google Maps-->
+    <script src="https://maps.googleapis.com/maps/api/js">
+    </script>
+    <script> 
+      function initialize() {
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+          center: new google.maps.LatLng(43.4689, -80.5400),
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <!--Code accessed from jonraasch.com, used for the slideshow fading animation -->
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js">
+    function slideSwitch() {
+        var $active = $('#slideshow IMG.active');
+        var $next = $active.next();    
+        $next.addClass('active');  
+        $active.removeClass('active');
+    }
+
+    $(function() {
+        setInterval( "slideSwitch()", 12000 );
+    });
+    </script>
+    <script>
+    function slideSwitch() {
+        var $active = $('#slideshow IMG.active');
+        var $next = $active.next();
+
+        $active.addClass('last-active');
+            
+        $next.css({opacity: 0.0})
+            .addClass('active')
+            .animate({opacity: 1.0}, 1000, function() {
+                $active.removeClass('active last-active');
+            });
+    }
+    $(function() {
+        setInterval( "slideSwitch()", 12000 );
+    });
+    </script>
+
+    <!--sources the preloading file, which contains the loading animation of the website-->
+    <script src="preloading.js"></script>
+
+    <!--Javascript for the smooth scroll animation across the page-->
+    <script>
+    $(function () {
+    $('a[href^="#"]').click(function(event) {
+    var id = $(this).attr("href");
+    var offset = 20;
+    var target = $(id).offset().top - offset;
+    $('html, body').animate({scrollTop:target}, 500);
+    event.preventDefault();
+    });
+    });
+    </script>
+</head>
+
+<body id="ref1" >
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <div id="content">
+        <h1>Loading shanpruthi.com</h1>
+    </div>
+
+    <div id="navigation">
+        <ul>
+        <br>
+            <li><a href="#ref1">HOME</a></li>
+            <li><a href="#ref">ABOUT</a></li>
+            <li><a href="#ref2">SKILLS</a></li>
+            <li><a href="images/Shan Pruthi Resume.pdf" target="_blank">RESUME</a></li>
+            <li><a href="#ref4">CONTACT</a></li>
+        <br>
+        </ul> 
+    </div>
+
+    <div class="bigpic">
+        <div id="slideshow">
+            <img src="images/bigpic.jpg" alt="" class="active" />
+            <img src="images/pic1.jpg" alt="" />
+            <img src="images/pic2.jpg" alt="" />
+            <img src="images/pic3.jpg" alt="" />
+            <img src="images/pic4.jpg" alt="" />
+            <img src="images/pic5.jpg" alt="" />
+            <img id="hiding" src="images/pic6.jpg" alt="" />
+            <img src="images/pic7.jpg" alt="" />
+            <img id="hiding" src="images/pic8.jpg" alt="" />
+            <img src="images/bigpic.jpg" alt="" />
+        </div>
+	    <div style="text-align:center"><a href="#ref"><img class="arrow" src="images/Down Arrow.png" width="50" height="50" /></a><div>
+	    <div class="nametext"><a><b>SHAN PRUTHI</b></a></div>
+	    <div class="description"><a>Designer &#124; Engineer &#124; Student</a></div>
+        
+        <div id=MainLogos align="center">
+    		<div class="Logo"><a href="https://www.facebook.com/shanpruthi10" target="_blank"><img src="images/FbLogo.png" width="22" height="22" alt="Facebook" /></a>
+            </div>
+    		<div class="Logo"><a href="https://www.twitter.com/shanpruthi" target="_blank"><img src="images/TwitterLogo.png" width="25" height="22" alt="Twitter"/></a>
+            </div>
+    		<div class="Logo"><a href="https://www.linkedin.com/in/shanpruthi" target="_blank">
+    <img src="images/LinkedLogo.png" width="22" height="22" alt="LinkedIn" /></a>
+		    </div>
+        </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+	<div id="ref" class="container1">
+	    <div class="container2">
+	        <div class="about">
+                <hr class="ref invisibleline">
+    	        <a class="headingpart">ABOUT &nbsp;</a><img src="images/glasses.png" width="47" height="18" />
+                <br><br>
+		        <a class="para">Hi, I am a first year Systems Design engineering student, at the University of Waterloo. I enjoy the simple things in life, but I never shy away from the challenges that come with life’s complexities. Whether it’s solving a nerve-racking algorithm, or determining the perfect blend of sugar and cream in my tea, I love to solve problems. I am a firm believer that innovation, leadership and teamwork are the fundamental building blocks to success, and I pride in improving and reinventing myself everyday. I love to be active, challenge my mind, and develop projects that ease the lives of others.</a><br><br>
+
+                <p style="clear: both;"></p>
+                <!--<div class="captions"><a>Program, Projects, People</a></div> -->
+                	<div class="aboutpics" align='middle'>
+                		<a href="https://uwaterloo.ca/systems-design-engineering/" target="_blank"><img class="firstpic" src="images/systems.png" style="float: left; width: 32%; margin-right: 1%; margin-bottom: 0.5em;"></a>
+                		<a href="https://github.com/shanpruthi?tab=repositories" target="_blank"><img class="secondpic" src="images/coding.jpg" style="float: left; width: 32%; margin-right: 1%; margin-bottom: 0.5em;"></a>
+                		<a href="https://www.facebook.com/shanpruthi10" target="_blank"><img class="thirdpic" src="images/family.jpg" style="float: left; width: 32%; margin-right: 1%; margin-bottom: 0.5em;"></a>
+                        <p style="clear: both;"></p>
+                        
+		            </div>    
+
+            </div>
+            <hr>
+
+            <br><br><br><br><br>
+            <div class="quotation">
+                <a>We are what we repeatedly do. Excellence, then, is not an act, but a habit.</a><br><a>- Aristotle</a>
+            </div>
+            <br><br><br><hr class="invisibleline" id="ref2"><br><br>
+
+            <hr>
+            
+            <div  class="skills">
+                <br><a class="headingpart">SKILLS &nbsp;</a><img src="images/gear.png" width="20" height="20" />
+                <div class="column">
+                    <a>Programming</a>
+                    <ul class="listofskills">
+                        <li><a>HTML5</a></li>
+                    	<li><a>CSS3</a></li>
+                        <li><a>Python</a></li>
+                        <li><a>Java</a></li>
+                        <li><a>Javascript</a></li>
+                    </ul>
+                    <a>Editing</a>
+                    <ul class="listofskills"><li><a>Photoshop</a></li>
+                    	<li><a>Illustrator</a></li>
+                        <li><a>Premiere</a></li>
+                        <li><a>After Effects</a></li>
+                        <a>&nbsp;</a>
+                    </ul>
+                    <a>Personal</a>
+                    <ul class="listofskills"><li><a>Leadership</a></li>
+                    	<li><a>Creativity</a></li>
+                        <li><a>Quick Learner</a></li>
+                        <li><a>Motivated</a></li>
+                        <a>&nbsp;</a>
+                    </ul>
+                </div>
+            </div>
+
+
+<!--
+            <div class="resume">
+                <hr><br>
+                <a class="headingpart">RESUM&Eacute &nbsp;</a><img src="images/education.png" width="25" height="17" /><br><br>
+                <div style="text-align: center"><a href="images/Shan Pruthi Resume.pdf" target="_blank">
+                    <img class="screenshot" src="images/resumescreenshot.png" alt="Download Resume" style="width: 98%;" /></a>
+                </div>
+            </div> -->
+            <hr>
+            <br><br><br><br><br>
+            <div class="quotation">
+                <a>We can't help everyone, but everyone can help someone.</a><br><a>- Ronald Reagan</a>
+            </div>
+            <br><br><br><hr class="invisibleline" id="ref4"><br><br>
+            <hr>
+            <div class="contactme">
+                <br>
+                <a class="headingpart">CONTACT &nbsp;</a><img src="images/phone.png" width="22" height="26" />
+                <br>
+                <div id="form-wrap">
+                    <div class="leftside">
+                        <h4 class="first"> I would love to hear from you! Feel free to send me an email at <a class="email" href="mailto:shanpruthi@msn.com">shanpruthi@msn.com</a> if you have any questions or concerns.</h4>
+                        <!--<div class="contact-form">
+                            <form method="post" id="contactform" name="contactform">
+                                <input type="text" name="name" id="name" placeholder="name">
+                                <input type="email" name="email" id="email" placeholder="email">
+                                <input type="text" name="subject" id="subject" placeholder="subject">
+                                <textarea name="message" id="message" placeholder="message"></textarea>
+                                <input type="submit" name="submit" id="submit" value="submit">
+                            </form>
+                            <h3 id="cf-success">
+                                <i class="fa fa-check"></i> Your message was sent succssfully!
+                            </h3>
+                            <h3 id="cf-error">
+                                <i class="fa fa-times"></i> Something went wrong, try refreshing and submitting the form again.
+                            </h3>
+                        </div>-->
+                    </div>
+
+                </div>
+                <h4 class="secondline"> I can also often be reached around the University of Waterloo campus.</h4>
+                <div id="map-canvas">
+                </div>
+                <br><br>
+
+                <div id=AllLogos>
+                	<div class="Logo">
+                    	<a href="https://www.facebook.com/shanpruthi10" target="_blank"><img src="images/FbLogoblue.png" width="22" height="22" alt="Facebook"/></a>
+                    </div>
+                    <div class="Logo">
+                		<a href="https://www.twitter.com/shanpruthi" target="_blank"><img src="images/TwitterLogoblue.png" width="25" height="22" alt="Twitter"/></a>
+                    </div>
+                    <div class="Logo">
+                		<a href="https://www.linkedin.com/in/shanpruthi" target="_blank">
+                <img src="images/LinkedLogoblue.png" width="22" height="22" alt="LinkedIn" /></a>
+                	</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

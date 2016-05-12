@@ -1,0 +1,76 @@
+
+.site-info {
+	visibility: hidden;
+}
+
+.menu-tertiary ul li {
+	font-size: 13px;
+}
+
+.menu-primary-menu-container {
+	padding-top: 10px;
+	border-bottom: 2px solid #2e3192;
+	padding-bottom: 25px;
+}
+
+#main {
+	padding-top: 5px;
+}
+
+.menu-primary-menu-container ul li a {
+	font-size: 13px;
+}
+
+.menu-primary-menu-container ul li a:hover {
+	font-size: 16px;
+}
+
+.site-header a img {
+	width: 400px;
+	border-bottom: 3px dashed #efefef;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menu-side-menu-container ul li {
+	background-color: #ffffff;
+}
+
+.menu-side-menu-container ul li {
+	background-color: rgba(255,255,255,0);
+}
+
+nav {
+	background-color: rgba(255,255,255,0);
+}
+
+.entry-title {
+	text-transform: none;
+}
+
+header.entry-header {
+	color: black;
+}
+
+blockquote {
+	color: #2e3192;
+}
+
+#page {
+	background-color: rgba(255,255,255,0.6);
+}
+
+body {
+	background-image: url('https://sitharaonline.files.wordpress.com/2015/08/whiteout03.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#tertiary {
+	padding-top: 15px;
+}
+
+#secondary {
+	padding-top: 15px;
+}
