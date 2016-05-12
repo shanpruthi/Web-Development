@@ -1,0 +1,20 @@
+/* Form style */
+input, textarea, select { font: 15px 'Lato', Arial, Helvetica, sans-serif; color:#555; border:0; -webkit-transition: all 0.2s ease 0s; -moz-transition: all 0.2s ease 0s; -o-transition: all 0.2s ease 0s; transition: all 0.2s ease 0s; float:none; display:block; margin:0px; -webkit-appearance: none; background:none }
+textarea { resize: none; }
+#message { margin: 0; padding: 0px; z-index:200; height:auto; }
+.error_message, #success_page { display: block; height:auto; color:#d31800; font-style:italic; font-family: "Lato",'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif; font-size: 12px; padding: 26px 40px 0px 40px; line-height:1.5 }
+#success_page { color:#2b2b2b !important; padding:18px 20px 0 0px }
+.loader { display:none; }
+/* Form Element Styling */
+.contact > .elem-content {background:#fff !important }
+.form-part { padding: 0; margin-top:30px; border-top:1px solid #e5e5e5; }
+.form-part > textarea, .form-part > select, .form-part > input:not([type="submit"]):not([type="image"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]) {
+ padding: 25px 40px 26px; width: 100%; border-bottom:1px solid #e5e5e5; font-style: normal; line-height: 20px; background:#fff;
+}
+.grey .form-part > textarea, .grey .form-part > select, .grey .form-part > input:not([type="submit"]):not([type="image"]):not([type="button"]):not([type="checkbox"]):not([type="radio"]) { border:1px solid #fff; }
+.form-part > input:focus, .form-part > textarea:focus { }
+.form-part > textarea { height: 174px; resize: none; }
+.form-part > .input-wrapper { position: relative;  }
+.send-btn { display: block; color: #000; border:solid 1px #ddd; padding: 12px 26px 13px; margin: 33px 0 10px 43px; font-size:11px; font-family: "Lato", "Open Sans", Arial, Helvetica, sans-serif; font-weight:600; text-transform:uppercase; line-height:1; letter-spacing:1px; display: inline-block; border-radius:30px; }
+.send-btn:hover { border:1px solid #2b2b2b; }
+.comment-form-wrapper .send-btn { float:right }
